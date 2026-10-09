@@ -1,0 +1,260 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SWOT і TOWS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Reference card: eyebrow → question → axes → grid → rules → cross → procedure → cautions → task */
+:root{
+  --bg:#F7F5F0; --surface:#FFFFFF; --surface-2:#EDE7DC;
+  --fg:#1C2B3A; --muted:#55616B; --line:#DED8CC;
+  --accent:#A84A1A; --teal:#2E6F7E;
+  --zone-go:#E2EDEF; --zone-hold:#F1EDE4; --zone-stop:#F6E5DB;
+  --serif:'Source Serif 4', Georgia, serif;
+  --sans:'IBM Plex Sans', system-ui, -apple-system, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121C26; --surface:#1C2B3A; --surface-2:#24354A;
+  --fg:#F0EDE6; --muted:#9FAEBB; --line:#2F4256;
+  --accent:#E8995F; --teal:#78BAC7;
+  --zone-go:#1B3A43; --zone-hold:#2A3444; --zone-stop:#3B2619;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#121C26; --surface:#1C2B3A; --surface-2:#24354A;
+  --fg:#F0EDE6; --muted:#9FAEBB; --line:#2F4256;
+  --accent:#E8995F; --teal:#78BAC7;
+  --zone-go:#1B3A43; --zone-hold:#2A3444; --zone-stop:#3B2619;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--sans); line-height:1.5;
+  padding-inline:20px; padding-block:40px 64px}
+.wrap{max-width:820px; margin:0 auto; display:flex; flex-direction:column; gap:40px}
+.wrap>*{min-width:0; max-width:100%}
+.eyebrow{font-size:13px; font-weight:600; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin:0}
+h1{font-family:var(--serif); font-size:clamp(34px,7vw,48px); font-weight:600; line-height:1.1;
+  margin:10px 0 0; text-wrap:balance}
+.lead{font-family:var(--serif); font-size:clamp(20px,4vw,25px); line-height:1.35; margin:14px 0 0; color:var(--muted)}
+h2{font-size:13px; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 14px; padding-bottom:8px; border-bottom:1px solid var(--line)}
+h3{font-size:17px; font-weight:600; margin:0}
+p{margin:0}
+.intro{font-size:16px; line-height:1.55; margin-bottom:16px}
+.axes{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.axis{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px;
+  display:flex; flex-direction:column; gap:7px; min-width:0}
+.axis .tag{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--teal)}
+.axis p{font-size:15px; color:var(--muted)}
+.axis .hard{color:var(--fg); font-weight:500}
+.gridwrap{overflow-x:auto; max-width:100%}
+.m{display:grid; gap:8px; min-width:470px; grid-template-columns:126px 1fr 1fr}
+.cell{border-radius:11px; padding:16px 15px; display:flex; flex-direction:column; gap:6px; min-width:0}
+.cell .name{font-family:var(--serif); font-size:19px; font-weight:600; line-height:1.2}
+.cell .do{font-size:13.5px; color:var(--muted); line-height:1.4}
+.go{background:var(--zone-go)} .hold{background:var(--zone-hold)} .stop{background:var(--zone-stop)}
+.rowlab,.collab{font-size:13px; font-weight:600; color:var(--muted); display:flex; align-items:center; min-width:0}
+.collab{justify-content:center; text-align:center; padding-bottom:2px; line-height:1.25}
+.rowlab{padding-right:10px; line-height:1.3}
+ol{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-size:16px}
+ol li::marker{color:var(--accent); font-weight:700}
+.rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+.rule{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:19px;
+  display:flex; flex-direction:column; gap:7px; min-width:0}
+.rule .n{font-family:var(--serif); font-size:24px; font-weight:700; color:var(--accent); line-height:1}
+.rule p{font-size:14.5px; color:var(--muted); line-height:1.45}
+.pairs{display:grid; grid-template-columns:repeat(auto-fit,minmax(285px,1fr)); gap:14px}
+.pair{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px;
+  display:flex; flex-direction:column; gap:10px; min-width:0}
+.pair .kind{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--teal)}
+.pair.stopkind .kind{color:var(--accent)}
+.el{display:flex; gap:9px; align-items:baseline}
+.el .k{font-family:var(--serif); font-size:15px; font-weight:700; color:var(--accent); flex:0 0 17px}
+.el .v{font-size:14.5px; color:var(--muted); line-height:1.45; min-width:0}
+.pair .out{font-size:15.5px; line-height:1.5; border-top:1px solid var(--line); padding-top:12px}
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px}
+.note{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px;
+  display:flex; flex-direction:column; gap:8px; min-width:0}
+.note .tag{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase}
+.note p{font-size:15px; color:var(--muted); line-height:1.5}
+.sees .tag{color:var(--teal)} .blind .tag{color:var(--accent)}
+.forbo{border-left:4px solid var(--accent); background:var(--surface-2); border-radius:0 12px 12px 0;
+  padding:20px 22px; display:flex; flex-direction:column; gap:9px}
+.forbo .tag{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.forbo p{font-size:16px; line-height:1.5}
+.task{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:22px;
+  display:flex; flex-direction:column; gap:10px}
+.task p{font-size:15px; color:var(--muted); line-height:1.5}
+.task strong{color:var(--fg); font-weight:600}
+footer{font-size:13px; color:var(--muted); line-height:1.5; border-top:1px solid var(--line); padding-top:18px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Модуль I · Блок 2 → 3 · Довідник</p>
+  <h1>SWOT і TOWS</h1>
+  <p class="lead">Чотири списки — і що з них нарешті робити?</p>
+</header>
+
+<section>
+  <h2>Дві осі</h2>
+  <div class="axes">
+    <div class="axis">
+      <span class="tag">Горизонталь</span>
+      <h3>Допомагає чи шкодить</h3>
+      <p>Завжди відносно мети. Та сама обставина буває можливістю для одної стратегії і загрозою для іншої. Тому мету формулюють <em>до</em> SWOT, а не після.</p>
+    </div>
+    <div class="axis">
+      <span class="tag">Вертикаль</span>
+      <h3>Всередині чи зовні</h3>
+      <p class="hard">Сила і слабкість — те, чим ви керуєте. Можливість і загроза — те, що відбувається без вас і без вашого дозволу. Плутанина тут — головна причина, чому SWOT виходить безглуздим.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Чотири квадранти і перевірка до кожного</h2>
+  <div class="gridwrap">
+    <div class="m">
+      <div></div>
+      <div class="collab">Допомагає</div>
+      <div class="collab">Шкодить</div>
+
+      <div class="rowlab">Всередині<br>(ми)</div>
+      <div class="cell go">
+        <span class="name">Сили (S)</span>
+        <span class="do">Чого немає в того, до кого член пішов би замість вас</span>
+      </div>
+      <div class="cell hold">
+        <span class="name">Слабкості (W)</span>
+        <span class="do">Те, що ви самі могли змінити цього року — і не змінили</span>
+      </div>
+
+      <div class="rowlab">Зовні<br>(світ)</div>
+      <div class="cell go">
+        <span class="name">Можливості (O)</span>
+        <span class="do">Подія поза вами, якою ще ніхто не скористався</span>
+      </div>
+      <div class="cell stop">
+        <span class="name">Загрози (T)</span>
+        <span class="do">Подія поза вами, яка вдарить, навіть якщо ви не зробите нічого</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Три жорсткі правила</h2>
+  <div class="rules">
+    <div class="rule">
+      <span class="n">1</span>
+      <h3>Сила — лише відносно альтернативи</h3>
+      <p>«Досвідчена команда» і «добра репутація» — не сили, це самопочуття. Сила — те, чого немає в найближчої альтернативи для вашого члена.</p>
+    </div>
+    <div class="rule">
+      <span class="n">2</span>
+      <h3>Максимум три на квадрант</h3>
+      <p>Дванадцять слабкостей — це не аналіз, це скарга. Четвертий пункт витісняє найслабший, а не додається п'ятим.</p>
+    </div>
+    <div class="rule">
+      <span class="n">3</span>
+      <h3>Кожен пункт має доказ</h3>
+      <p>Цифра, подія або ім'я. «Слабка комунікація» — ні. «Розсилку відкривають 11% членів» — так.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>TOWS: де список стає рішенням</h2>
+  <p class="intro">SWOT закінчується чотирма списками — і саме тому має кепську репутацію. TOWS це той самий матеріал, перехрещений попарно. Кожна пара дає не спостереження, а дію.</p>
+  <div class="gridwrap">
+    <div class="m">
+      <div></div>
+      <div class="collab">× Можливості (O)</div>
+      <div class="collab">× Загрози (T)</div>
+
+      <div class="rowlab">Сили (S)</div>
+      <div class="cell go">
+        <span class="name">SO · Наступ</span>
+        <span class="do">Чим скористатися вже зараз. Саме тут народжуються два-три пункти, які потім стануть ядром стратегії</span>
+      </div>
+      <div class="cell hold">
+        <span class="name">ST · Оборона</span>
+        <span class="do">Що захистити силою. Загроза є, але вам є чим її зустріти</span>
+      </div>
+
+      <div class="rowlab">Слабкості (W)</div>
+      <div class="cell hold">
+        <span class="name">WO · Підтягнути</span>
+        <span class="do">Можливість є, спроможності немає. Або наймаєте під неї людину, або чесно відпускаєте</span>
+      </div>
+      <div class="cell stop">
+        <span class="name">WT · Чого не робити</span>
+        <span class="do">Найкорисніша клітинка дня. Це і є ваш стоп-лист</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Як перехрестити — два приклади</h2>
+  <p class="intro">Дія має дієслово, власника і дату. «Посилити співпрацю з владою» — не дія, це настрій.</p>
+  <div class="pairs">
+    <div class="pair">
+      <span class="kind">SO · наступ</span>
+      <div class="el"><span class="k">S</span><span class="v">маємо дані по 80 підприємствах галузі — ніхто більше їх не має</span></div>
+      <div class="el"><span class="k">O</span><span class="v">уряд готує галузеве рішення і шукає, на що опертися</span></div>
+      <p class="out"><strong>Квартальний індекс галузі.</strong> Публікуємо щокварталу і стаємо джерелом цифр, на які посилається профільний комітет. Власник — аналітик. Перший випуск — через 90 днів.</p>
+    </div>
+    <div class="pair stopkind">
+      <span class="kind">WT · стоп-лист</span>
+      <div class="el"><span class="k">W</span><span class="v">усі напрями тримаються на директорі</span></div>
+      <div class="el"><span class="k">T</span><span class="v">зміна влади — персональні домовленості обнуляться</span></div>
+      <p class="out"><strong>Не беремо нових напрямів до кінця року.</strong> Замість того передаємо два наявні другій особі — поіменно, з датою. Рішення на правління в листопаді.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Як зробити</h2>
+  <ol>
+    <li><strong>Спершу мета</strong> — один рядок: чого ви хочете досягти за рік. Без неї в SWOT немає системи координат, і «допомагає / шкодить» нічого не означає.</li>
+    <li><strong>Потім зовнішнє.</strong> O і T беріть прямо з PESTEL і скринінгу горизонту — не вигадуйте заново.</li>
+    <li><strong>Тільки тоді внутрішнє.</strong> І лише те, що видно вашому членові зовні, а не те, що ви відчуваєте всередині.</li>
+    <li>Викресліть усе без доказу. Зазвичай зникає більше половини.</li>
+    <li>Залиште по три на квадрант. Перехрестіть у TOWS попарно — не всі з усіма, а ті пари, що самі просяться.</li>
+    <li>Запишіть дії дієсловом, із власником і датою. Одна клітинка — одна дія, не три.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Чим корисний і де бреше</h2>
+  <div class="two">
+    <div class="note sees">
+      <span class="tag">Бачить краще за інших</span>
+      <p>Зв'язок. Єдине місце дня, де внутрішнє і зовнішнє стоять в одному кадрі — і де стає видно, що на вашу головну силу назовні просто немає попиту.</p>
+    </div>
+    <div class="note blind">
+      <span class="tag">Сліпа пляма</span>
+      <p>Нічого не важить і не ранжує. Ризик на 5% і ризик на 80% стоять в одній клітинці й виглядають однаково. SWOT не скаже, що робити першим, — це вирішуєте ви.</p>
+    </div>
+  </div>
+</section>
+
+<div class="forbo">
+  <span class="tag">Для бізнес-об'єднання</span>
+  <p>Сила асоціації майже завжди одна з трьох: <strong>доступ</strong> — вас пускають туди, куди не пускають окремого підприємця; <strong>дані</strong> — ви бачите всю галузь, а член бачить тільки себе; <strong>мандат</strong> — ви маєте право говорити від імені багатьох. «Дружна команда» і «великий досвід» у цей список не входять. Якщо жодної з трьох немає — це і є головний висновок дня, і він важливіший за будь-яку матрицю.</p>
+</div>
+
+<div class="task">
+  <h3>Де це робиться</h3>
+  <p><strong>У залі — коротко:</strong> один квадрант сил і одна пара SO, щоб побачити механіку. Решту складаєте вдома перед модулем II — повний SWOT на чотири квадранти забирає півдня, і це нормально.</p>
+  <p>Головна перевірка вдома: до кожного пункту допишіть доказ в один рядок. Пункти без доказу викресліть — їх зазвичай більше половини, і це найкорисніше, що ви зробите з цією рамкою.</p>
+</div>
+
+<footer>
+  Походження SWOT спірне: найчастіше його приписують Албертові Гамфрі (Stanford Research Institute, 1960-ті), хоча сам він авторства не заявляв; документований попередник — рамка LCAG із Гарварду (Learned, Christensen, Andrews, Guth, «Business Policy: Text and Cases», 1965). Перехрещення в матрицю TOWS запропонував Гайнц Вайхріх у 1982 році. Правило «доказ до кожного пункту» і трійка сил асоціації — адаптація під бізнес-об'єднання, у підручниках їх немає.
+</footer>
+
+</div>
+
+</body></html>
